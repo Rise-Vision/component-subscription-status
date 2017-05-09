@@ -85,7 +85,7 @@ describe("directive: subscription status", function() {
   it("use the provided Store link", function(done) {
     element = $compile("<div id='subscription-status' subscription-status product-id='productId' " +
                        "product-code='productCode' company-id='companyId' ng-model='subscribed' " +
-                       "custom-store-link='http://testurl.com'></div>")($rootScope);
+                       "custom-product-link='http://testurl.com'></div>")($rootScope);
 
     $rootScope.$digest();
 
