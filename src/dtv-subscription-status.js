@@ -15,11 +15,13 @@
           companyId: "@",
           expandedFormat: "@",
           showStoreModal: "=?",
-          customProductLink: "@"
+          customProductLink: "@",
+          customMessages: "@"
         },
         template: $templateCache.get("subscription-status-template.html"),
         link: function($scope, elm, attrs, ctrl) {
           $scope.subscriptionStatus = {"status": "N/A", "statusCode": "na", "subscribed": false, "expiry": null};
+          $scope.messagesPrefix = $scope.customMessages ? $scope.customMessages : "subscription-status";
 
           var updateUrls = function() {
             $scope.storeAccountUrl = STORE_URL + ACCOUNT_PATH
