@@ -37,19 +37,6 @@
             }
           };
 
-          $scope.$watch("companyId", function() {
-            checkSubscriptionStatus();
-
-            updateUrls();
-          });
-
-          $rootScope.$on("refreshSubscriptionStatus", function(event, data) {
-            // Only refresh if currentStatus code matches the provided value, or value is null
-            if(data === null || $scope.subscriptionStatus.statusCode === data) {
-              checkSubscriptionStatus();
-            }
-          });
-
           function checkSubscriptionStatus() {
             if ($scope.productCode && $scope.productId && $scope.companyId) {
               subscriptionStatusService.get($scope.productCode, $scope.companyId).then(function(subscriptionStatus) {
@@ -66,6 +53,19 @@
               });
             }
           }
+
+          $scope.$watch("companyId", function() {
+            checkSubscriptionStatus();
+
+            updateUrls();
+          });
+
+          $rootScope.$on("refreshSubscriptionStatus", function(event, data) {
+            // Only refresh if currentStatus code matches the provided value, or value is null
+            if(data === null || $scope.subscriptionStatus.statusCode === data) {
+              checkSubscriptionStatus();
+            }
+          });
 
           if (ctrl) {
             $scope.$watch("subscriptionStatus", function(subscriptionStatus) {

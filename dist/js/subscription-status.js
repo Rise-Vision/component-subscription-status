@@ -55,10 +55,6 @@
         link: function($scope, elm, attrs, ctrl) {
           $scope.subscriptionStatus = {"status": "N/A", "statusCode": "na", "subscribed": false, "expiry": null};
 
-          $scope.$watch("companyId", function() {
-            checkSubscriptionStatus();
-          });
-
           function checkSubscriptionStatus() {
             if ($scope.productCode && $scope.productId && $scope.companyId) {
               subscriptionStatusService.get($scope.productCode, $scope.companyId).then(function(subscriptionStatus) {
@@ -71,6 +67,10 @@
               });
             }
           }
+
+          $scope.$watch("companyId", function() {
+            checkSubscriptionStatus();
+          });
 
           if (ctrl) {
             $scope.$watch("subscriptionStatus", function(subscriptionStatus) {
@@ -159,19 +159,6 @@
             }
           };
 
-          $scope.$watch("companyId", function() {
-            checkSubscriptionStatus();
-
-            updateUrls();
-          });
-
-          $rootScope.$on("refreshSubscriptionStatus", function(event, data) {
-            // Only refresh if currentStatus code matches the provided value, or value is null
-            if(data === null || $scope.subscriptionStatus.statusCode === data) {
-              checkSubscriptionStatus();
-            }
-          });
-
           function checkSubscriptionStatus() {
             if ($scope.productCode && $scope.productId && $scope.companyId) {
               subscriptionStatusService.get($scope.productCode, $scope.companyId).then(function(subscriptionStatus) {
@@ -188,6 +175,19 @@
               });
             }
           }
+
+          $scope.$watch("companyId", function() {
+            checkSubscriptionStatus();
+
+            updateUrls();
+          });
+
+          $rootScope.$on("refreshSubscriptionStatus", function(event, data) {
+            // Only refresh if currentStatus code matches the provided value, or value is null
+            if(data === null || $scope.subscriptionStatus.statusCode === data) {
+              checkSubscriptionStatus();
+            }
+          });
 
           if (ctrl) {
             $scope.$watch("subscriptionStatus", function(subscriptionStatus) {
@@ -235,7 +235,7 @@ angular.module("risevision.widget.common.subscription-status")
           msg = expiresToday !== null ? expiresToday(params) : "";
         }
       } catch (e) {
-        msg = expiresToday !== null ? expiresToday(params) : "";
+        // Nothing to do
       }
 
       return msg;
