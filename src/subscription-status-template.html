@@ -1,6 +1,6 @@
 <div ng-show="!expandedFormat">
   <h3 ng-disable-right-click>
-    <span ng-show="subscriptionStatus.statusCode !== 'not-subscribed'" ng-bind-html="'subscription-status.' + subscriptionStatus.statusCode + subscriptionStatus.plural | translate:subscriptionStatus | to_trusted"></span>
+    <span ng-show="subscriptionStatus.statusCode !== 'not-subscribed'" ng-bind-html="messagesPrefix + '.' + subscriptionStatus.statusCode + subscriptionStatus.plural | translate:subscriptionStatus | to_trusted"></span>
   </h3>
   
   <span ng-show="subscriptionStatus.statusCode === 'trial-available'">
